@@ -1,0 +1,151 @@
+.navigation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+    &__inner {
+        width: 100%;
+    }
+    &__nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    @media screen and ( max-width: 993px ){
+        position: fixed;
+    }
+}
+
+.navigation__toggler {
+    padding: 1em;
+    display: inline-block;
+    position: fixed;
+    top: 10px;
+    right: 30px;
+    z-index: 5;
+    svg {
+        fill: black;
+    }
+    @media screen and (min-width: 993px) {
+        display: none;
+    }  
+}
+
+.dropdown {
+    will-change: transform;
+    @include posA ($top:100%, $left:null, $delta_x: null, $delta_y: null);
+    right: 0;
+    width: 100vw;
+    height: 100vh;    
+    z-index: -1;
+    background-color: rgba(255,255,255, .8);
+    opacity: 0;
+    transform-origin: calc(100% - 15px) 15px;
+    transform: translate(0, 0) scale(.1);
+    @include tr(.5s);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px 0 0;
+    .menu-opened & {
+        z-index: 2;
+        opacity: 1;
+        transform: translate(0, 0) scale(.3);
+        border: 1px solid rgba(1, 86, 102, .3);
+        align-items: center;
+        @media screen and (max-width: 992px) {
+            width: 100%;
+            height: 800px;
+
+            text-align: center;
+
+            opacity: 1;
+
+            right: 5%;
+            transform: translate(0, 0) scale(.4);
+            z-index: 2;
+        }
+        @media screen and ( max-width:768px ) { 
+            width: 140%;
+        }
+    }
+    @media screen and (min-width: 993px) {
+    position: relative;
+    background-color: transparent;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    padding: 0;
+    z-index: 1;
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    }
+
+}
+
+.menu {
+    margin: 0  0 0 10px;
+    padding: 0;
+
+    list-style: none;
+    &__item {
+        margin: 0 20px 0 25px;
+ 
+        &--mrgn {
+            margin-left: 69px ;
+        }
+        &::before {
+            content: "⚪";
+            font-size: 1.5rem;
+            vertical-align: middle;
+            color: $white-color;
+        }
+        @include hover {
+            &::before { 
+                content: "⚫";
+            }
+        }
+        @media screen and( max-width:1140px){
+            list-style: none;
+            margin: 0 0 0 9px;
+        }
+        @media screen and (max-width: 992px) {
+            width: 100%;
+            height: 20%;
+        }
+    }
+    &__link {
+        display: inline-block;
+
+        padding: .25em 0;
+        text-decoration: none;
+        text-transform: uppercase;
+        @include font ( $fz: 1.5rem, $fc: $white-color, $fw: 400, $lh: 1.6);
+        vertical-align: middle;
+
+        @media screen and (max-width: 992px) {
+            padding: 0;
+            height: 15%;
+            @include font ( $fz: 10rem, $fc: $title-color, $fw: 400, $lh: 1.6);
+            text-align: center;
+        }
+        @media screen and (max-width: 768px) {
+            padding: 0;
+            height: 15%;
+            @include font ( $fz: 6.5rem, $fc: $title-color, $fw: 400, $lh: 1.6);
+            text-align: center;
+        }
+        .dropdown & {
+            padding: .72em;
+            @media screen and (max-width: 992px) {
+                padding-top: 0;
+                padding-right: .72em;
+            }
+        }
+    }
+}
+
+.menu-opened {
+    overflow: hidden;
+}
